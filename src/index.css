@@ -6,43 +6,41 @@
   html {
     font-family: 'Inter', system-ui, sans-serif;
     scroll-behavior: smooth;
+    background: #050816;
   }
 
   body {
     @apply antialiased;
   }
 
-  /* Improve typography */
   h1, h2, h3, h4, h5, h6 {
     @apply font-medium leading-tight tracking-tight;
   }
 
-  /* Custom scrollbar */
   ::-webkit-scrollbar {
     @apply w-2;
   }
   
   ::-webkit-scrollbar-track {
-    @apply bg-gray-100 dark:bg-gray-800;
+    @apply bg-gray-800;
   }
   
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-gray-300 transition-colors hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500;
+    @apply rounded-full bg-primary/30 transition-colors hover:bg-primary/50;
   }
 
-  /* Selection color */
   ::selection {
-    @apply bg-primary/20 text-primary dark:bg-primary/30 dark:text-primary-200;
+    @apply bg-primary/20 text-primary-200;
   }
 }
 
 @layer components {
   .section-title {
-    @apply mb-6 text-2xl font-bold text-gray-800 dark:text-white md:text-3xl;
+    @apply mb-6 text-2xl font-bold text-white md:text-3xl;
   }
   
   .card {
-    @apply rounded-xl bg-white p-6 shadow-md transition-all duration-300 dark:bg-gray-800;
+    @apply rounded-xl bg-white/5 p-6 shadow-xl backdrop-blur-lg transition-all duration-300 hover:bg-white/10;
   }
   
   .btn {
@@ -50,18 +48,17 @@
   }
   
   .btn-primary {
-    @apply bg-primary text-white hover:bg-primary-600 dark:bg-primary-500 dark:hover:bg-primary-400;
+    @apply bg-primary text-white hover:bg-primary-600;
   }
   
   .btn-secondary {
-    @apply bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600;
+    @apply bg-white/10 text-white backdrop-blur-lg hover:bg-white/20;
   }
   
   .input {
-    @apply w-full rounded-lg border border-gray-300 bg-white px-4 py-2 transition-all focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:focus:border-primary-400 dark:focus:ring-primary-400;
+    @apply w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-white backdrop-blur-lg transition-all focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary;
   }
 
-  /* Loading animations */
   .animate-float {
     animation: float 6s ease-in-out infinite;
   }
