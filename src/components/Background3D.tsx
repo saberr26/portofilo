@@ -1,10 +1,11 @@
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Sphere, useTexture } from '@react-three/drei';
-import { useMemo, useCallback } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls, Sphere } from '@react-three/drei';
+import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
 
-const Background3D = () => {
+function Points() {
   const count = window.innerWidth < 768 ? 1000 : 2000;
+  const pointsRef = useRef();
   
   const positions = useMemo(() => {
     const positions = new Float32Array(count * 3);
@@ -21,41 +22,52 @@ const Background3D = () => {
     return positions;
   }, [count]);
 
-  const onCreated = useCallback(({ gl }) => {
-    gl.setPixelRatio(Math.min(2, window.devicePixelRatio));
-    gl.toneMapping = THREE.ACESFilmicToneMapping;
-    gl.outputEncoding = THREE.sRGBEncoding;
-  }, []);
+  useFrame((state) => {
+    if (pointsRef.current) {
+      pointsRef.current.rotation.x = state.clock.getElapsedTime() * 0.1;
+      pointsRef.current.rotation.y = state.clock.getElapsedTime() * 0.05;
+    }
+  });
 
+  return (
+    <points ref={pointsRef}>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          count={count}
+          array={positions}
+          itemSize={3}
+        />
+      </bufferGeometry>
+      <pointsMaterial
+        size={0.015}
+        color="#6750A4"
+        sizeAttenuation
+        transparent
+        opacity={0.6}
+        depthWrite={false}
+      />
+    </points>
+  );
+}
+
+const Background3D = () => {
   return (
     <div className="fixed inset-0 -z-10">
       <Canvas
         camera={{ position: [0, 0, 5], fov: 60 }}
-        onCreated={onCreated}
-        performance={{ min: 0.5 }}
+        dpr={[1, 2]}
+        gl={{
+          antialias: true,
+          toneMapping: THREE.ACESFilmicToneMapping,
+          outputEncoding: THREE.sRGBEncoding,
+        }}
       >
         <color attach="background" args={['#050816']} />
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} intensity={0.8} />
         
-        <points>
-          <bufferGeometry>
-            <bufferAttribute
-              attach="attributes-position"
-              count={count}
-              array={positions}
-              itemSize={3}
-            />
-          </bufferGeometry>
-          <pointsMaterial
-            size={0.015}
-            color="#6750A4"
-            sizeAttenuation
-            transparent
-            opacity={0.6}
-            depthWrite={false}
-          />
-        </points>
+        <Points />
 
         <Sphere args={[1, 32, 32]}>
           <meshStandardMaterial

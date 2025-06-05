@@ -16,6 +16,11 @@ export default defineConfig({
       },
     },
     chunkSizeWarningLimit: 1000,
-    target: 'esnext',
+  },
+  server: {
+    headers: {
+      'Cross-Origin-Opener-Policy': 'same-origin',
+      'Cross-Origin-Embedder-Policy': 'require-corp',
+    },
   },
 });
