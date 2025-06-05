@@ -59,8 +59,10 @@ const Background3D = () => {
         dpr={[1, 2]}
         gl={{
           antialias: true,
-          toneMapping: THREE.ACESFilmicToneMapping,
-          outputEncoding: THREE.sRGBEncoding,
+          powerPreference: "high-performance",
+          alpha: true,
+          stencil: false,
+          depth: true
         }}
       >
         <color attach="background" args={['#050816']} />
