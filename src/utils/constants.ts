@@ -1,4 +1,4 @@
-import { Skill, Project, Service } from '../types';
+import { Skill, Project, Service, ContactInfo } from '../types';
 
 export const SKILLS: Skill[] = [
   {
@@ -50,7 +50,6 @@ export const PROJECTS: Project[] = [
     image: 'https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     technologies: ['Python', 'PRAW/Scrapy', 'Pandas', 'Data Analysis'],
     githubUrl: 'https://github.com',
-    demoUrl: 'https://demo.com'
   },
   {
     title: 'Automated File Management System',
@@ -65,34 +64,54 @@ export const PROJECTS: Project[] = [
     image: 'https://images.pexels.com/photos/7988079/pexels-photo-7988079.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     technologies: ['Python', 'Bash', 'Monitoring', 'Dashboard'],
     githubUrl: 'https://github.com',
-    demoUrl: 'https://demo.com'
   }
 ];
 
 export const SERVICES: Service[] = [
   {
-    title: 'Python Automation',
-    description: 'Custom scripts for data processing, file management, API integration, and general task automation. Clean & maintainable code.',
-    icon: 'PythonLogo',
-    price: '$30-150 per script'
+    name: 'Backend Development',
+    description: 'Building robust and scalable backend systems using Python frameworks like Django or Flask.',
+    icon: 'Code',
+    features: ['RESTful API Design', 'Database Integration', 'Server-Side Logic', 'Performance Optimization']
   },
   {
-    title: 'Linux System Administration',
-    description: 'Server setup, maintenance, security hardening, and performance optimization for your Linux systems and servers.',
+    name: 'Automation Scripting',
+    description: 'Developing custom Python and Bash scripts to automate repetitive tasks, workflows, and system operations.',
     icon: 'Terminal',
-    price: '$50-200 per system'
+    features: ['Workflow Automation', 'Data Processing Automation', 'Report Generation', 'System Maintenance Scripts']
   },
   {
-    title: 'Web Scraping Solutions',
-    description: 'Custom scrapers to extract data from websites, transform it into useful formats, and integrate with your existing systems.',
-    icon: 'Database',
-    price: '$100-500 per project'
+    name: 'System Administration',
+    description: 'Configuration, maintenance, and monitoring of Linux servers and systems for optimal performance and security.',
+    icon: 'Terminal',
+    features: ['Server Setup & Configuration', 'Security Hardening', 'Performance Tuning', 'Troubleshooting']
   },
   {
-    title: 'Technical Consulting',
-    description: 'Expert advice on automation, system architecture, and technical solutions tailored to your specific business needs.',
-    icon: 'HeadSideBrain',
-    price: '$75/hour'
+    name: 'Cloud Deployment',
+    description: 'Deploying and managing applications on cloud platforms like AWS, Azure, or Google Cloud.',
+    icon: 'Cloud',
+    features: ['Infrastructure as Code (IaC)', 'Serverless Computing', 'Scalability Solutions', 'Cost Optimization']
+  },
+  {
+    name: 'CI/CD Implementation',
+    description: 'Setting up Continuous Integration and Continuous Delivery pipelines to streamline your development process.',
+    icon: 'GitBranch',
+    features: ['Automated Testing', 'Automated Deployment', 'Workflow Automation', 'Integration with Version Control']
+  },
+  {
+    name: 'Technical Consulting',
+    description: 'Providing expert guidance and solutions for technical challenges in automation, system architecture, and development.',
+    icon: 'MessageSquare',
+    features: ['System Design', 'Technology Stack Advice', 'Process Improvement', 'Problem Solving']
+  }
+];
+
+export const CONTACT_INFO: ContactInfo = {
+  email: 'your.email@example.com', // Replace with your actual email
+  github: 'yourgithub', // Replace with your GitHub username
+  linkedin: 'yourlinkedin', // Replace with your LinkedIn username
+  discord: 'yourdiscordid', // Replace with your Discord user ID (the numbers)
+};
   }
 ];
 
