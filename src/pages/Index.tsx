@@ -38,7 +38,7 @@ const Index = () => {
         <header className="text-center mb-20 animate-fade-in-up">
           <div className="glass-morphism-strong rounded-6xl p-12 mb-8">
             <h1 className="text-6xl font-bold text-gradient mb-6 animate-float">
-              Alex Developer
+              Hocine dev
             </h1>
             <p className="text-2xl text-on-surface-variant mb-8 font-medium">
               Python Developer & Linux Automation Specialist
@@ -46,11 +46,11 @@ const Index = () => {
             
             <div className="flex flex-wrap justify-center gap-6">
               <a 
-                href="mailto:alex.dev@gmail.com"
+                href="mailto:hachemihocine06@gmail.com"
                 className="flex items-center space-x-3 glass-morphism rounded-5xl px-6 py-4 hover-glow transition-all duration-300 group hover:bg-red-600/20 hover:border-red-500/50"
               >
                 <Mail className="w-6 h-6" />
-                <span className="text-on-surface group-hover:text-red-400">alex.dev@gmail.com</span>
+                <span className="text-on-surface group-hover:text-red-400">hachemihocine06@gmail.com </span>
               </a>
               
               <a 
@@ -66,7 +66,7 @@ const Index = () => {
                 className="flex items-center space-x-3 glass-morphism rounded-5xl px-6 py-4 hover-glow transition-all duration-300 group hover:bg-gray-800/20 hover:border-gray-600/50"
               >
                 <Github className="w-6 h-6" />
-                <span className="text-on-surface group-hover:text-gray-300">github.com/alexdev</span>
+                <span className="text-on-surface group-hover:text-gray-300">github.com/saberr26</span>
               </a>
             </div>
           </div>
@@ -206,7 +206,7 @@ const Index = () => {
             </p>
             
             <a 
-              href="mailto:alex.dev@gmail.com"
+              href="hachemihocine06@gmail.com"
               className="inline-block px-12 py-4 bg-gradient-to-r from-primary-material to-secondary-material rounded-5xl text-surface font-bold text-lg hover:scale-105 hover-glow transition-all duration-300"
             >
               Get In Touch
