@@ -1,0 +1,169 @@
+
+@import url('https://www.nerdfonts.com/assets/css/webfont.css');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --radius: 1rem;
+
+    /* Dynamic Material 3 Colors */
+    --color-primary-material: #d0bcff;
+    --color-secondary-material: #ccc2dc;
+    --color-tertiary-material: #efb8c8;
+    --color-surface: #121212;
+    --color-surface-variant: #1e1e1e;
+    --color-surface-container: #2d2d2d;
+    --color-surface-container-high: #383838;
+    --color-on-surface: #e6e1e5;
+    --color-on-surface-variant: #cac4d0;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans;
+    background: radial-gradient(ellipse at center, var(--color-surface-variant) 0%, var(--color-surface) 50%, var(--color-surface));
+    color: var(--color-on-surface);
+    min-height: 100vh;
+    font-family: 'Nerd Font', 'JetBrainsMono Nerd Font', 'FiraCode Nerd Font', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .glass-morphism {
+    background: rgba(45, 45, 45, 0.3);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-morphism-strong {
+    background: rgba(45, 45, 45, 0.7);
+    backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, var(--color-primary-material), var(--color-tertiary-material));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /*.glow-border {
+    box-shadow: 0 0 20px color-mix(in srgb, var(--color-primary-material) 30%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-primary-material) 50%, transparent);
+  }*/
+
+  /*.hover-glow:hover {
+    box-shadow: 0 0 30px color-mix(in srgb, var(--color-primary-material) 50%, transparent);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+  }*/
+
+  .text-primary-material {
+    color: var(--color-primary-material);
+  }
+
+  .text-secondary-material {
+    color: var(--color-secondary-material);
+  }
+
+  .text-tertiary-material {
+    color: var(--color-tertiary-material);
+  }
+
+  .text-on-surface {
+    color: var(--color-on-surface);
+  }
+
+  .text-on-surface-variant {
+    color: var(--color-on-surface-variant);
+  }
+
+  .bg-surface {
+    background-color: var(--color-surface);
+  }
+
+  .bg-surface-container {
+    background-color: var(--color-surface-container);
+  }
+
+  .bg-surface-container-high {
+    background-color: var(--color-surface-container-high);
+  }
+
+  .bg-primary-material {
+    background-color: var(--color-primary-material);
+  }
+
+  .bg-secondary-material {
+    background-color: var(--color-secondary-material);
+  }
+
+  .from-primary-material {
+    --tw-gradient-from: var(--color-primary-material) var(--tw-gradient-from-position);
+  }
+
+  .to-secondary-material {
+    --tw-gradient-to: var(--color-secondary-material) var(--tw-gradient-to-position);
+  }
+
+  .border-primary-material {
+    border-color: var(--color-primary-material);
+  }
+}
