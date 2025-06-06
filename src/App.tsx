@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, lazy } from 'react';
 import Header from './components/Header';
 import SkillsSection from './components/SkillsSection';
 import ProjectsSection from './components/ProjectsSection';
