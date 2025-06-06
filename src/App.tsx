@@ -5,12 +5,19 @@ import ProjectsSection from './components/ProjectsSection';
 import ServicesSection from './components/ServicesSection';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import Background3D from './components/Background3D';
+import { lazy, Suspense } from 'react';
+
+// Lazy load the heavy 3D component
+const Background3D = lazy(() => {
+  console.log('Lazy loading Background3D...');
+  return import('./components/Background3D');
+});
 
 function App() {
+  console.log('App component rendering...');
   return (
     <>
-      <Suspense fallback={<div className="h-screen w-screen bg-[#050816]" />}>
+      <Suspense fallback={console.log('Showing loading spinner...') || <div className="fixed inset-0 -z-10 h-screen w-screen bg-[#050816]" />}>
         <Background3D />
       </Suspense>
       <div className="relative min-h-screen bg-transparent px-4 py-8 text-white sm:px-6 lg:px-8">

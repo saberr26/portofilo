@@ -3,6 +3,8 @@ import { OrbitControls, Sphere } from '@react-three/drei';
 import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
 
+console.log('Background3D.tsx is being loaded');
+
 function Points() {
   const count = window.innerWidth < 768 ? 1000 : 2000;
   const pointsRef = useRef();
