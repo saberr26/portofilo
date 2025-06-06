@@ -49,7 +49,7 @@ export const PROJECTS: Project[] = [
     description: 'Automated tool for collecting and analyzing post data from subreddits. Features include data export and trend identification.',
     image: 'https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     technologies: ['Python', 'PRAW/Scrapy', 'Pandas', 'Data Analysis'],
-    githubUrl: 'https://github.com',
+    githubUrl: 'https://github.com'
   },
   {
     title: 'Automated File Management System',
@@ -63,7 +63,7 @@ export const PROJECTS: Project[] = [
     description: 'Real-time monitoring tool for Linux servers that tracks system resources, services, and network activity with configurable alerts.',
     image: 'https://images.pexels.com/photos/7988079/pexels-photo-7988079.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     technologies: ['Python', 'Bash', 'Monitoring', 'Dashboard'],
-    githubUrl: 'https://github.com',
+    githubUrl: 'https://github.com'
   }
 ];
 
@@ -110,14 +110,5 @@ export const CONTACT_INFO: ContactInfo = {
   email: 'your.email@example.com', // Replace with your actual email
   github: 'yourgithub', // Replace with your GitHub username
   linkedin: 'yourlinkedin', // Replace with your LinkedIn username
-  discord: 'yourdiscordid', // Replace with your Discord user ID (the numbers)
-};
-  }
-];
-
-export const CONTACT_INFO = {
-  email: 'your.email@example.com',
-  discord: 'YourHandle#1234',
-  github: 'yourusername',
-  linkedin: 'yourlinkedin'
+  discord: 'yourdiscordid' // Replace with your Discord user ID (the numbers)
 };
