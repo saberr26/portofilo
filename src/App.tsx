@@ -5,7 +5,6 @@ import ProjectsSection from './components/ProjectsSection';
 import ServicesSection from './components/ServicesSection';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import { lazy, Suspense } from 'react';
 
 // Lazy load the heavy 3D component
 const Background3D = lazy(() => {
