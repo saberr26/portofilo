@@ -1,0 +1,565 @@
+the request was :
+"can you please fix the site not loading in browsers and slow? and also fix the three.js performance issues,a add more professional look to the portofillo, better three.js elements, respect token linmits to avoid stoppin at the middle of the generation"
+you stopped at generating the optimized css
+her's what you generated so far:
+file 1:
+import { Canvas, useFrame } from '@react-three/fiber';
+import { useMemo, useRef, Suspense } from 'react';
+import * as THREE from 'three';
+
+function FloatingGeometry() {
+  const meshRef = useRef();
+  const particlesRef = useRef();
+  
+  // Reduced particle count for better performance
+  const particleCount = window.innerWidth < 768 ? 300 : 600;
+  
+  const particles = useMemo(() => {
+    const positions = new Float32Array(particleCount * 3);
+    const colors = new Float32Array(particleCount * 3);
+    
+    for (let i = 0; i < particleCount; i++) {
+      // Create a more controlled distribution
+      const radius = 2 + Math.random() * 3;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.random() * Math.PI;
+      
+      positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+      positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+      positions[i * 3 + 2] = radius * Math.cos(phi);
+      
+      // Gradient colors
+      colors[i * 3] = 0.4 + Math.random() * 0.2; // R
+      colors[i * 3 + 1] = 0.3 + Math.random() * 0.3; // G  
+      colors[i * 3 + 2] = 0.6 + Math.random() * 0.4; // B
+    }
+    
+    return { positions, colors };
+  }, [particleCount]);
+
+  useFrame((state) => {
+    const time = state.clock.getElapsedTime();
+    
+    // Smooth, slow rotation for the main geometry
+    if (meshRef.current) {
+      meshRef.current.rotation.x = time * 0.1;
+      meshRef.current.rotation.y = time * 0.05;
+    }
+    
+    // Gentle particle movement
+    if (particlesRef.current) {
+      particlesRef.current.rotation.x = time * 0.02;
+      particlesRef.current.rotation.y = time * 0.03;
+    }
+  });
+
+  return (
+    <>
+      {/* Main floating geometry */}
+      <mesh ref={meshRef}>
+        <icosahedronGeometry args={[1, 1]} />
+        <meshStandardMaterial
+          color="#6750A4"
+          wireframe
+          transparent
+          opacity={0.2}
+          roughness={0.8}
+          metalness={0.2}
+        />
+      </mesh>
+      
+      {/* Particle system */}
+      <points ref={particlesRef}>
+        <bufferGeometry>
+          <bufferAttribute
+            attach="attributes-position"
+            count={particleCount}
+            array={particles.positions}
+            itemSize={3}
+          />
+          <bufferAttribute
+            attach="attributes-color"
+            count={particleCount}
+            array={particles.colors}
+            itemSize={3}
+          />
+        </bufferGeometry>
+        <pointsMaterial
+          size={0.008}
+          vertexColors
+          sizeAttenuation
+          transparent
+          opacity={0.8}
+          blending={THREE.AdditiveBlending}
+        />
+      </points>
+    </>
+  );
+}
+
+const Background3D = () => {
+  return (
+    <div className="fixed inset-0 -z-10">
+      <Suspense fallback={null}>
+        <Canvas
+          camera={{ position: [0, 0, 4], fov: 45 }}
+          dpr={Math.min(window.devicePixelRatio, 2)}
+          performance={{ min: 0.8 }}
+          gl={{
+            antialias: false,
+            powerPreference: "high-performance",
+            alpha: true,
+            stencil: false,
+            depth: false
+          }}
+        >
+          <color attach="background" args={['#050816']} />
+          <ambientLight intensity={0.3} />
+          <directionalLight position={[2, 2, 5]} intensity={0.5} />
+          
+          <FloatingGeometry />
+        </Canvas>
+      </Suspense>
+    </div>
+  );
+};
+
+export default Background3D;
+file 2:
+import React, { useEffect, useState } from 'react';
+import { Github, Mail, Linkedin, MessageSquare, Download, Code } from 'lucide-react';
+import { CONTACT_INFO } from '../utils/constants';
+
+const Header: React.FC = () => {
+  const [typedText, setTypedText] = useState('');
+  const [isLoaded, setIsLoaded] = useState(false);
+  const fullText = 'Python Developer & Linux Automation Specialist';
+  
+  useEffect(() => {
+    let currentIndex = 0;
+    setIsLoaded(true);
+    
+    const interval = setInterval(() => {
+      if (currentIndex <= fullText.length) {
+        setTypedText(fullText.slice(0, currentIndex));
+        currentIndex++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 50);
+    
+    return () => clearInterval(interval);
+  }, []);
+  
+  return (
+    <header className="relative mb-20 overflow-hidden">
+      {/* Hero Section */}
+      <div className="relative min-h-[80vh] flex items-center justify-center">
+        <div className={`text-center transition-all duration-1000 ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+          
+          {/* Profile Image/Avatar */}
+          <div className="mb-8 flex justify-center">
+            <div className="relative">
+              <div className="h-32 w-32 md:h-40 md:w-40 rounded-full bg-gradient-to-br from-primary via-secondary to-tertiary p-1 animate-pulse-slow">
+                <div className="h-full w-full rounded-full bg-gray-900 flex items-center justify-center text-4xl md:text-5xl font-bold text-white">
+                  H
+                </div>
+              </div>
+              <div className="absolute -bottom-2 -right-2 h-8 w-8 bg-green-500 rounded-full border-4 border-gray-900 flex items-center justify-center">
+                <div className="h-3 w-3 bg-white rounded-full animate-ping"></div>
+              </div>
+            </div>
+          </div>
+
+          {/* Name and Title */}
+          <h1 className="mb-4 bg-gradient-to-r from-primary via-secondary to-tertiary bg-clip-text text-6xl md:text-7xl font-bold text-transparent">
+            Hocine
+          </h1>
+          
+          <div className="mb-6 min-h-[40px]">
+            <p className="text-xl md:text-2xl text-gray-300 font-medium">
+              {typedText}
+              <span className="ml-1 inline-block h-6 w-1 animate-blink bg-primary"></span>
+            </p>
+          </div>
+
+          {/* Professional Tagline */}
+          <p className="mb-12 text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+            Crafting intelligent automation solutions and robust systems that drive efficiency and innovation. 
+            Specializing in Python development and Linux system optimization.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <a 
+              href={`mailto:${CONTACT_INFO.email}`}
+              className="group flex items-center justify-center px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary/25"
+            >
+              <Mail size={20} className="mr-3 group-hover:animate-bounce" />
+              Get In Touch
+            </a>
+            
+            <button className="group flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-lg text-white font-semibold rounded-full border border-white/20 transition-all duration-300 hover:bg-white/20 hover:scale-105">
+              <Download size={20} className="mr-3 group-hover:animate-bounce" />
+              Download CV
+            </button>
+          </div>
+
+          {/* Professional Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12 max-w-2xl mx-auto">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-primary mb-1">50+</div>
+              <div className="text-sm text-gray-400">Projects Completed</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-secondary mb-1">5+</div>
+              <div className="text-sm text-gray-400">Years Experience</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-tertiary mb-1">24/7</div>
+              <div className="text-sm text-gray-400">System Uptime</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-primary mb-1">100%</div>
+              <div className="text-sm text-gray-400">Client Satisfaction</div>
+            </div>
+          </div>
+
+          {/* Social Links */}
+          <div className="flex justify-center space-x-6">
+            <a 
+              href={`https://github.com/${CONTACT_INFO.github}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center justify-center h-12 w-12 bg-white/10 backdrop-blur-lg rounded-full border border-white/20 transition-all duration-300 hover:bg-white/20 hover:scale-110 hover:border-white/40"
+            >
+              <Github size={20} className="text-white group-hover:text-primary transition-colors" />
+            </a>
+            
+            <a 
+              href={`https://linkedin.com/in/${CONTACT_INFO.linkedin}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center justify-center h-12 w-12 bg-white/10 backdrop-blur-lg rounded-full border border-white/20 transition-all duration-300 hover:bg-white/20 hover:scale-110 hover:border-white/40"
+            >
+              <Linkedin size={20} className="text-white group-hover:text-[#0A66C2] transition-colors" />
+            </a>
+
+            <a 
+              href={`https://discord.com/users/${CONTACT_INFO.discord}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center justify-center h-12 w-12 bg-white/10 backdrop-blur-lg rounded-full border border-white/20 transition-all duration-300 hover:bg-white/20 hover:scale-110 hover:border-white/40"
+            >
+              <MessageSquare size={20} className="text-white group-hover:text-[#5865F2] transition-colors" />
+            </a>
+
+            <a 
+              href={`mailto:${CONTACT_INFO.email}`}
+              className="group flex items-center justify-center h-12 w-12 bg-white/10 backdrop-blur-lg rounded-full border border-white/20 transition-all duration-300 hover:bg-white/20 hover:scale-110 hover:border-white/40"
+            >
+              <Mail size={20} className="text-white group-hover:text-primary transition-colors" />
+            </a>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+            <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse"></div>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+};
+
+export default Header;
+file 3:
+import React, { Suspense, lazy } from 'react';
+import Header from './components/Header';
+import SkillsSection from './components/SkillsSection';
+import ProjectsSection from './components/ProjectsSection';
+import ServicesSection from './components/ServicesSection';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
+
+// Lazy load the heavy 3D component
+const Background3D = lazy(() => import('./components/Background3D'));
+
+// Loading component for better UX
+const LoadingSpinner = () => (
+  <div className="fixed inset-0 -z-10 bg-[#050816] flex items-center justify-center">
+    <div className="relative">
+      <div className="h-12 w-12 rounded-full border-4 border-primary/20 border-t-primary animate-spin"></div>
+      <div className="absolute inset-0 h-12 w-12 rounded-full border-4 border-transparent border-r-secondary animate-spin animate-reverse animation-delay-150"></div>
+    </div>
+  </div>
+);
+
+function App() {
+  return (
+    <>
+      {/* Background with better loading */}
+      <Suspense fallback={<LoadingSpinner />}>
+        <Background3D />
+      </Suspense>
+      
+      {/* Main content with optimized structure */}
+      <div className="relative min-h-screen bg-transparent text-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <Header />
+          
+          <main className="relative z-10 space-y-20">
+            <SkillsSection />
+            <ProjectsSection />
+            <ServicesSection />
+            <Contact />
+          </main>
+          
+          <Footer />
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default App;
+file 4:
+import React, { useState } from 'react';
+import { SKILLS } from '../utils/constants';
+import { Code, Terminal, Cog, Wrench, ChevronRight } from 'lucide-react';
+
+const SkillsSection: React.FC = () => {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  const getIconComponent = (iconName: string) => {
+    switch (iconName) {
+      case 'Code':
+        return <Code className="text-primary" size={28} />;
+      case 'Terminal':
+        return <Terminal className="text-primary" size={28} />;
+      case 'Cog':
+        return <Cog className="text-primary" size={28} />;
+      case 'Wrench':
+        return <Wrench className="text-primary" size={28} />;
+      default:
+        return <Code className="text-primary" size={28} />;
+    }
+  };
+
+  return (
+    <section className="py-20">
+      <div className="mb-16 text-center">
+        <div className="inline-flex items-center justify-center h-12 w-12 bg-primary/10 rounded-full mb-6">
+          <Wrench className="text-primary" size={24} />
+        </div>
+        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          Technical Expertise
+        </h2>
+        <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          Comprehensive skill set built through years of hands-on experience and continuous learning
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {SKILLS.map((skill, index) => (
+          <div
+            key={index}
+            className={`group relative p-8 rounded-2xl bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-lg border border-white/10 transition-all duration-500 hover:border-primary/30 hover:bg-white/10 ${
+              hoveredIndex === index ? 'scale-105 shadow-2xl shadow-primary/10' : ''
+            }`}
+            onMouseEnter={() => setHoveredIndex(index)}
+            onMouseLeave={() => setHoveredIndex(null)}
+          >
+            {/* Background Pattern */}
+            <div className="absolute inset-0 rounded-2xl opacity-5">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-primary to-transparent rounded-full transform translate-x-8 -translate-y-8"></div>
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-secondary to-transparent rounded-full transform -translate-x-6 translate-y-6"></div>
+            </div>
+
+            <div className="relative">
+              {/* Header */}
+              <div className="flex items-center mb-6">
+                <div className="flex items-center justify-center h-16 w-16 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl mr-4 group-hover:from-primary/30 group-hover:to-secondary/30 transition-all duration-300">
+                  {getIconComponent(skill.icon)}
+                </div>
+                <h3 className="text-2xl font-bold text-white group-hover:text-primary transition-colors">
+                  {skill.name}
+                </h3>
+              </div>
+              
+              {/* Skills List */}
+              <div className="space-y-3">
+                {skill.items.map((item, idx) => (
+                  <div key={idx} className="flex items-start group/item">
+                    <ChevronRight 
+                      size={16} 
+                      className="text-primary/60 mr-3 mt-1 flex-shrink-0 group-hover/item:text-primary group-hover/item:translate-x-1 transition-all duration-200" 
+                    />
+                    <span className="text-gray-300 group-hover/item:text-white transition-colors duration-200">
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Progress Bar */}
+              <div className="mt-6 h-1 bg-white/10 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-primary to-secondary rounded-full transition-all duration-1000 ease-out"
+                  style={{ 
+                    width: hoveredIndex === index ? '85%' : '0%',
+                    transitionDelay: hoveredIndex === index ? '200ms' : '0ms'
+                  }}
+                ></div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Additional Info */}
+      <div className="mt-16 text-center">
+        <div className="inline-flex items-center px-6 py-3 bg-white/5 backdrop-blur-lg rounded-full border border-white/10">
+          <span className="text-gray-300 mr-2">Continuously expanding skills with</span>
+          <span className="text-primary font-semibold">AI-assisted development</span>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default SkillsSection;
+file 5:
+import React, { useState } from 'react';
+import { PROJECTS } from '../utils/constants';
+import { Rocket, Github, ExternalLink, ArrowRight } from 'lucide-react';
+
+const ProjectsSection: React.FC = () => {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  return (
+    <section className="py-20">
+      <div className="mb-16 text-center">
+        <div className="inline-flex items-center justify-center h-12 w-12 bg-secondary/10 rounded-full mb-6">
+          <Rocket className="text-secondary" size={24} />
+        </div>
+        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          Featured Projects
+        </h2>
+        <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          Showcasing real-world solutions that demonstrate technical expertise and problem-solving capabilities
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {PROJECTS.map((project, index) => (
+          <div
+            key={index}
+            className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-lg border border-white/10 transition-all duration-700 hover:border-primary/30 ${
+              hoveredIndex === index ? 'scale-105 shadow-2xl shadow-primary/20' : ''
+            }`}
+            onMouseEnter={() => setHoveredIndex(index)}
+            onMouseLeave={() => setHoveredIndex(null)}
+          >
+            {/* Project Image */}
+            <div className="relative h-64 overflow-hidden">
+              <div
+                className={`absolute inset-0 bg-cover bg-center transition-all duration-700 ${
+                  hoveredIndex === index ? 'scale-110' : 'scale-100'
+                }`}
+                style={{ backgroundImage: `url(${project.image})` }}
+              />
+              
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              
+              {/* Hover Overlay with Actions */}
+              <div className={`absolute inset-0 bg-black/60 flex items-center justify-center gap-4 transition-all duration-300 ${
+                hoveredIndex === index ? 'opacity-100' : 'opacity-0'
+              }`}>
+                {project.demoUrl && (
+                  <a
+                    href={project.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center px-4 py-2 bg-primary rounded-full text-white font-medium transition-all duration-300 hover:bg-primary/80 hover:scale-105"
+                  >
+                    <ExternalLink size={16} className="mr-2" />
+                    Demo
+                  </a>
+                )}
+                
+                {project.githubUrl && (
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-white font-medium transition-all duration-300 hover:bg-white/30 hover:scale-105"
+                  >
+                    <Github size={16} className="mr-2" />
+                    Code
+                  </a>
+                )}
+              </div>
+
+              {/* Status Badge */}
+              <div className="absolute top-4 right-4">
+                <span className="px-3 py-1 bg-green-500/20 backdrop-blur-sm border border-green-400/30 rounded-full text-green-300 text-sm font-medium">
+                  Completed
+                </span>
+              </div>
+            </div>
+
+            {/* Project Content */}
+            <div className="p-6">
+              <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">
+                {project.title}
+              </h3>
+              
+              <p className="text-gray-300 mb-4 leading-relaxed">
+                {project.description}
+              </p>
+              
+              {/* Technologies */}
+              <div className="flex flex-wrap gap-2 mb-4">
+                {project.technologies.map((tech, idx) => (
+                  <span
+                    key={idx}
+                    className="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium text-gray-300 border border-white/10 hover:border-primary/30 hover:text-primary transition-all duration-200"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              {/* Learn More Link */}
+              <div className="flex items-center text-primary hover:text-primary/80 transition-colors cursor-pointer group/link">
+                <span className="text-sm font-medium mr-2">Learn more</span>
+                <ArrowRight 
+                  size={16} 
+                  className="transform group-hover/link:translate-x-1 transition-transform" 
+                />
+              </div>
+            </div>
+
+            {/* Bottom Accent */}
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-tertiary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+          </div>
+        ))}
+      </div>
+
+      {/* View All Projects CTA */}
+      <div className="mt-12 text-center">
+        <button className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary/20 to-secondary/20 backdrop-blur-lg rounded-full border border-primary/30 text-white font-semibold transition-all duration-300 hover:from-primary/30 hover:to-secondary/30 hover:scale-105">
+          <Github size={20} className="mr-3 group-hover:animate-pulse" />
+          View All Projects on GitHub
+          <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
+        </button>
+      </div>
+    </section>
+  );
+};
+
+export default ProjectsSection;

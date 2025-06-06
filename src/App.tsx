@@ -1,40 +1,27 @@
-import React, { Suspense, lazy } from 'react';
-import Header from './components/Header';
-import SkillsSection from './components/SkillsSection';
-import ProjectsSection from './components/ProjectsSection';
-import ServicesSection from './components/ServicesSection';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Index from "./pages/Index";
+import NotFound from "./pages/NotFound";
 
-// Lazy load the heavy 3D component
-const Background3D = lazy(() => {
-  console.log('Lazy loading Background3D...');
-  return import('./components/Background3D');
-});
+const queryClient = new QueryClient();
 
-function App() {
-  console.log('App component rendering...');
-  return (
-    <>
-      <Suspense fallback={console.log('Showing loading spinner...') || <div className="fixed inset-0 -z-10 h-screen w-screen bg-[#050816]" />}>
-        <Background3D />
-      </Suspense>
-      <div className="relative min-h-screen bg-transparent px-4 py-8 text-white sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-6xl">
-          <Header />
-          
-          <main className="relative z-10">
-            <SkillsSection />
-            <ProjectsSection />
-            <ServicesSection />
-            <Contact />
-          </main>
-          
-          <Footer />
-        </div>
-      </div>
-    </>
-  );
-}
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </TooltipProvider>
+  </QueryClientProvider>
+);
 
 export default App;

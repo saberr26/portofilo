@@ -1,10 +1,5 @@
-import { createRoot } from 'react-dom/client';
-import App from './App.tsx';
-import './index.css';
+import { createRoot } from 'react-dom/client'
+import App from './App.tsx'
+import './index.css'
 
-console.log('Executing src/main.tsx');
-
-// biome-ignore lint/noninteractive-events/noNonNullAssertion: <explanation>
-createRoot(document.getElementById('root')!).render(
-  <App />
-);
+createRoot(document.getElementById("root")!).render(<App />);

@@ -1,98 +1,169 @@
+
+@import url('https://www.nerdfonts.com/assets/css/webfont.css');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  html {
-    font-family: 'Inter', system-ui, sans-serif;
-    scroll-behavior: smooth;
-    background: #050816;
-  }
+  :root {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
 
-  body {
-    @apply antialiased;
-  }
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-medium leading-tight tracking-tight;
-  }
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
 
-  ::-webkit-scrollbar {
-    @apply w-2;
-  }
-  
-  ::-webkit-scrollbar-track {
-    @apply bg-gray-800;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-primary/30 transition-colors hover:bg-primary/50;
-  }
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
 
-  ::selection {
-    @apply bg-primary/20 text-primary-200;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --radius: 1rem;
+
+    /* Dynamic Material 3 Colors */
+    --color-primary-material: #d0bcff;
+    --color-secondary-material: #ccc2dc;
+    --color-tertiary-material: #efb8c8;
+    --color-surface: #121212;
+    --color-surface-variant: #1e1e1e;
+    --color-surface-container: #2d2d2d;
+    --color-surface-container-high: #383838;
+    --color-on-surface: #e6e1e5;
+    --color-on-surface-variant: #cac4d0;
   }
 }
 
-@layer components {
-  .section-title {
-    @apply mb-6 text-2xl font-bold text-white md:text-3xl;
+@layer base {
+  * {
+    @apply border-border;
   }
-  
-  .card {
-    @apply rounded-xl bg-white/5 p-6 shadow-xl backdrop-blur-lg transition-all duration-300 hover:bg-white/10;
+
+  body {
+    @apply font-sans;
+    background: radial-gradient(ellipse at center, var(--color-surface-variant) 0%, var(--color-surface) 50%, var(--color-surface));
+    color: var(--color-on-surface);
+    min-height: 100vh;
+    font-family: 'Nerd Font', 'JetBrainsMono Nerd Font', 'FiraCode Nerd Font', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
-  
-  .btn {
-    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 font-medium transition-all duration-200;
+
+  html {
+    scroll-behavior: smooth;
   }
-  
-  .btn-primary {
-    @apply bg-primary text-white hover:bg-primary-600;
+}
+
+@layer utilities {
+  .glass-morphism {
+    background: rgba(45, 45, 45, 0.3);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
-  
-  .btn-secondary {
-    @apply bg-white/10 text-white backdrop-blur-lg hover:bg-white/20;
-  }
-  
-  .input {
-    @apply w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-white backdrop-blur-lg transition-all focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary;
+
+  .glass-morphism-strong {
+    background: rgba(45, 45, 45, 0.7);
+    backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
   .animate-float {
     animation: float 6s ease-in-out infinite;
   }
 
-  .animate-pulse-slow {
-    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-
-  .animate-gradient {
-    background-size: 200% 200%;
-    animation: gradient 15s ease infinite;
-  }
-
   @keyframes float {
-    0% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-20px);
-    }
-    100% {
-      transform: translateY(0px);
-    }
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
   }
 
-  @keyframes gradient {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
+  .text-gradient {
+    background: linear-gradient(135deg, var(--color-primary-material), var(--color-tertiary-material));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glow-border {
+    box-shadow: 0 0 20px color-mix(in srgb, var(--color-primary-material) 30%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-primary-material) 50%, transparent);
+  }
+
+  .hover-glow:hover {
+    box-shadow: 0 0 30px color-mix(in srgb, var(--color-primary-material) 50%, transparent);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+  }
+
+  .text-primary-material {
+    color: var(--color-primary-material);
+  }
+
+  .text-secondary-material {
+    color: var(--color-secondary-material);
+  }
+
+  .text-tertiary-material {
+    color: var(--color-tertiary-material);
+  }
+
+  .text-on-surface {
+    color: var(--color-on-surface);
+  }
+
+  .text-on-surface-variant {
+    color: var(--color-on-surface-variant);
+  }
+
+  .bg-surface {
+    background-color: var(--color-surface);
+  }
+
+  .bg-surface-container {
+    background-color: var(--color-surface-container);
+  }
+
+  .bg-surface-container-high {
+    background-color: var(--color-surface-container-high);
+  }
+
+  .bg-primary-material {
+    background-color: var(--color-primary-material);
+  }
+
+  .bg-secondary-material {
+    background-color: var(--color-secondary-material);
+  }
+
+  .from-primary-material {
+    --tw-gradient-from: var(--color-primary-material) var(--tw-gradient-from-position);
+  }
+
+  .to-secondary-material {
+    --tw-gradient-to: var(--color-secondary-material) var(--tw-gradient-to-position);
+  }
+
+  .border-primary-material {
+    border-color: var(--color-primary-material);
   }
 }
